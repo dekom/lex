@@ -1,13 +1,7 @@
-!!! 5
-html
-  head
-    title #{title}
-    link(rel="stylesheet", href="/stylesheets/bootstrap.min.css")
-    link(rel="stylesheet", href="/stylesheets/style.css")
-  body
-    h1 #{title}
-    p.
-      Welcome aboard! Visit
-      <a href="http://locomotivejs.org/">locomotivejs.org</a>
-      for details.
-    script(src="/javascripts/bootstrap.min.js")
+extends ../layout
+
+block content
+  h1= title
+  p Welcome aboard! Visit 
+    a(href="http://locomotivejs.org/") LocomotiveJS 
+    | for details.

@@ -7,6 +7,8 @@
     "express": "3.x.x",
     "connect-powered-by": "0.1.x",
     "ejs": "0.8.x",
-    "jade": "0.27.x"
+    "jade": "0.27.x",
+    "markdown": "0.4.x",
+    "jsonml": "0.0.x"
   }
 }

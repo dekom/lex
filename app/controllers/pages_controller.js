@@ -1,11 +1,23 @@
 var locomotive = require('locomotive')
-  , Controller = locomotive.Controller;
-
-var PagesController = new Controller();
+  , md = require('markdown')
+  , fs = require('fs')
+  , path = require('path')
+  , Controller = locomotive.Controller
+  , PagesController = new Controller()
 
 PagesController.main = function() {
   this.title = 'LeX'
-  this.render();
+  this.render()
 }
 
-module.exports = PagesController;
+PagesController.about = function() {
+  self = this
+  self.title = 'About LeX'
+  fs.readFile(path.resolve(__dirname + '/../../README.md'), function(err, data) {
+    if (err) throw err;
+
+    self.render({readme: md.markdown.toHTML(data.toString())})
+  })
+}
+
+module.exports = PagesController
