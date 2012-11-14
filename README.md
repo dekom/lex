@@ -1,7 +1,9 @@
 # LeX #
+
 Personal vocabulary builder
 
 ## Inspiration ##
+
 Vocabulary has always been a weakness throughout years of school.  It has
 never been terrible, and I certainly was able to cram for the SAT reading
 section very well.  However, it has never been satisfactory.
@@ -19,6 +21,7 @@ scratch very easily.  I believe, because the words chosen are from your
 personal readings, the context will greatly affect your memory of the words.
 
 ### User Story ###
+
 To illustrate certain functions, consider the following mock user story.
 
 Dan is browsing a NYT article online.  He finds words whose meaning he does
