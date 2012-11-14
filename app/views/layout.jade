@@ -5,5 +5,16 @@ html
     link(rel="stylesheet", href="/stylesheets/bootstrap.min.css")
     link(rel="stylesheet", href="/stylesheets/style.css")
   body
-    block content
+    .container-fluid
+      .row-fluid
+        .span12
+          block header
+      .row-fluid
+        .span2
+          block side
+        .span10
+          block content
+      .row-fluid
+        .span12
+          block footer
     script(src="/javascripts/bootstrap.min.js")
