@@ -16,6 +16,7 @@ PagesController.about = function() {
   fs.readFile(path.resolve(__dirname + '/../../README.md'), function(err, data) {
     if (err) throw err;
 
+    // Render about page with README.md as content
     self.render({readme: md.markdown.toHTML(data.toString())})
   })
 }
