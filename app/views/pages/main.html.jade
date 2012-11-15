@@ -1,10 +1,19 @@
 extends ../layout
 
-block side
-  h1= title
-  p The non-intrusive personal vocabulary builder
-
-block content
-  p Welcome aboard! Visit 
-    a(href="http://locomotivejs.org/") LocomotiveJS 
-    | for details.
+block body
+  .container-fluid(ng-controller="WordnikCtrl")
+    .row-fluid
+      <!-- Side bar -->
+      .span3#side
+        h1= title
+        p The non-intrusive personal vocabulary builder
+        h2 Wordnik API key:
+        p= process.env['WORDNIK_API']
+      <!-- Body -->
+      .span9#main
+        input(ng-model='query')
+        button(ng-click='search()')
+        select(ng-model='action', required, ng-options='act for act in actions')
+        ul
+          li(ng-repeat='result in results')
+            {{result | json}}
