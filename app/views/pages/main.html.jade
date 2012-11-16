@@ -12,8 +12,9 @@ block body
       <!-- Body -->
       .span9#main
         input(ng-model='query')
-        button(ng-click='search()')
+        button(ng-click='search()') Search
         select(ng-model='action', required, ng-options='act for act in actions')
+        p {{results}}
         ul
-          li(ng-repeat='result in results')
+          li(ng-repeat='(key, result) in results')
             {{result | json}}
