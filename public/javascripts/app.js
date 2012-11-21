@@ -1,15 +1,29 @@
+// #LeX#
+// The personal vocabulary builder
+//
+// LeX is a lightweight web application (and browser plugin) to help in
+// building one's vocabulary from scratch.  It aims to allow users to easily
+// search for words and optionally save the word and its discovery context.
+
 var lex = angular.module('LeX', ['ngResource'])
 
-// Create Wordnik interface
+// ##The Wordnik Interfact
+//
+// LeX does not store its own vocabulary database.  It instead uses the JSON
+// API interface provided by [Wordnik Developers](http://developer.wordnik.com/)
+//
+// This creates a resourceful interface for querying the Wordnik API (though
+// it can argued that it should not treated as a resource at all.)
 lex.factory('Wordnik', function($resource) {
   var baseUrl = 'http://api.wordnik.com/v4'
     , apiKey = 'd25b766254dd7337441237e86ca0f9460f6037ff7432ae240'
     , querySize = 5
     , wordnik = {}
-    , params =  { api_key: apiKey
+    , params =  { api_key: apiKey           // common query parameters
                 , limit: querySize
                 , callback: 'JSON_CALLBACK'
                 }
+    , exampleKeys = ['year', 'url', 'text'] // topExample is a singleton from examples
 
   // Default list of possible queries and the resource method they need to
   // call.  The difference between 'get' and 'query' is that 'query' returns
@@ -23,6 +37,7 @@ lex.factory('Wordnik', function($resource) {
                     , 'audio' : 'query'
                     }
 
+  // The querying interface that assists in communicating with Wordnik API
   wordnik.q =
           $resource(
                     baseUrl + '/word.json/:word/:action'
@@ -37,27 +52,45 @@ lex.factory('Wordnik', function($resource) {
                       }
                     )
 
+  // A mapping between query parameters (:action) and important attributes to
+  // extract
   wordnik.keyMaps = { 'definitions' : ['text', 'partOfSpeech', 'attributionText']
-                    , 'examples' : ['year', 'url', 'text']
-                    , 'topExample' : wordnik.keyMaps.examples
+                    , 'examples' : exampleKeys
+                    , 'topExample' : exampleKeys
                     , 'relatedWords' : ['words', 'relationshipType']
                     , 'pronunciations' : ['raw']
                     , 'audio' : ['duration', 'fileUrl', 'attributionText']
                     }
 
-  wordnik.parse = { 'definitions' : function(object) {
-                      var keys = ['text', 'partOfSpeech', 'attributionText']
-                      return extractKeyValuePairs()
-                    }
-                  , 'examples' : function(object, size) {
-                      size = size || querySize
-                    }
-                  , 'topExample' : function() {}
-                  , 'relatedWords' : function() {}
-                  , 'pronunciations' : function() {}
-                  , 'etymologies' : function() {}
-                  , 'audio' : function() {}
-                  }
+  // Function used to parse the query result down to only the necessary
+  // information based on keyMaps
+  wordnik.parse = function(action, result) {
+    var results = result
+      , parsed = []
+
+    // Result from topExample and examples query is an object instead of an
+    // array.  Because there are many more array results, I've decided to
+    // stupidly wrap the example results with an array.
+    if (action === 'topExample') {
+      results = [result]
+    } else if (action === 'examples') {
+      results = result[action]
+    }
+
+    // Given an array, loop their every element `res` and extract the useful
+    // information, based on keyMaps, into the returned object
+    results.forEach(function(res) {
+      var obj = {}
+
+      wordnik.keyMaps[action].forEach(function(key) {
+        obj[key] = res[key]
+      })
+
+      parsed.push(obj)
+    })
+
+    return parsed
+  }
 
   // Helper function
 

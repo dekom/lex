@@ -17,11 +17,11 @@ function WordnikCtrl($scope, Wordnik) {
                               , useCanonical: true
                               }
                               , function success() {
-                                  $scope.results = results
+                                  // Parse the results
+                                  $scope.results = Wordnik.parse($scope.action, results)
                                 }
                               , function error() {
-                              
-                              }
+                                }
     )
   }
 }

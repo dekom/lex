@@ -7,14 +7,15 @@ block body
       .span3#side
         h1= title
         p The non-intrusive personal vocabulary builder
-        h2 Wordnik API key:
-        p= process.env['WORDNIK_API']
       <!-- Body -->
       .span9#main
-        input(ng-model='query')
-        button(ng-click='search()') Search
-        select(ng-model='action', required, ng-options='act for act in actions')
-        p {{results}}
-        ul
-          li(ng-repeat='(key, result) in results')
-            {{result | json}}
+        .row-fluid
+          .span12
+            input(type="text", ng-model='query')
+            button.btn.btn-primary(ng-click='search()') Search
+            select(ng-model='action', required, ng-options='act for act in actions')
+        .row-fluid
+          .span12
+            ul
+              li(ng-repeat='(key, result) in results')
+                {{result | json}}
