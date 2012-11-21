@@ -2,27 +2,30 @@
 
 function WordnikCtrl($scope, Wordnik) {
 
-  // Default action to 'definitions'
-  $scope.action = 'definitions'
+  // List of all the actions to be queried to Wordnik API
   $scope.actions = Object.keys(Wordnik.actions)
+  $scope.results = {}
 
-  // Default query word
-  $scope.query = 'lexicon'
-
+  // Queries Wordnik API for results
   $scope.search = function() {
-    var results =
-        Wordnik.q[Wordnik.actions[$scope.action]](
-                              { action: $scope.action
+    $scope.results = {}
+
+    // Defaults to all possible defined actions.  Reference Wordnik.actions in
+    // `/javascripts/app.js`
+    $scope.actions.forEach(function(action) {
+
+      var queryFn = Wordnik.q[Wordnik.actions[action]]
+        , results = queryFn(  { action: action
                               , word: $scope.query
                               , useCanonical: true
                               }
                               , function success() {
-                                  // Parse the results
-                                  $scope.results = Wordnik.parse($scope.action, results)
-                                }
+                                $scope.results[action] = Wordnik.parse(action, results)
+                              }
                               , function error() {
-                                }
-    )
+                              }
+      )
+    })
   }
 }
 

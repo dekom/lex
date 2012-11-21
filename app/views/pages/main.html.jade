@@ -11,11 +11,26 @@ block body
       .span9#main
         .row-fluid
           .span12
-            input(type="text", ng-model='query')
-            button.btn.btn-primary(ng-click='search()') Search
-            select(ng-model='action', required, ng-options='act for act in actions')
+            form(ng-submit='search()')
+              input(type='text', ng-model='query', autofocus,
+              placeholder='Search Word')
         .row-fluid
-          .span12
-            ul
-              li(ng-repeat='(key, result) in results')
-                {{result | json}}
+          article#results.span12
+            section#definitions
+              header Definitions
+              p {{results.definitions}}
+            section#examples
+              header Examples
+              p {{results.examples}}
+            section#topExample
+              header Top Example
+              p {{results.topExample}}
+            section#relatedWords
+              header Related Words
+              p {{results.relatedWords}}
+            section#pronunications
+              header Pronunciations
+              p {{results.pronunciations}}
+            section#audio
+              header Audio
+              p {{results.audio}}
