@@ -4,11 +4,11 @@ block body
   .container-fluid(ng-controller="WordnikCtrl")
     .row-fluid
       <!-- Side bar -->
-      .span3#side
+      .span2#side
         h1= title
         p The non-intrusive personal vocabulary builder
       <!-- Body -->
-      .span9#main
+      .span10#main
         .row-fluid
           .span12
             form(ng-submit='search()')
@@ -16,12 +16,24 @@ block body
               placeholder='Search Word')
         .row-fluid
           article#results.span12
-            section#definitions
-              header Definitions
-              p {{results.definitions}}
-            section#examples
-              header Examples
-              p {{results.examples}}
+            header
+              h1 {{ query }}
+              audio#audio(controls, 
+                ng-src="{{results.audio[0].fileUrl}}",
+                ng-show="results.audio"
+                autoplay)
+
+            <!-- Definitions -->
+            dl#definitions
+              div(ng-repeat="def in results.definitions")
+                dt {{def.partOfSpeech}}
+                dd {{def.text}}
+
+            ul(type='none')#examples
+              li(ng-repeat="ex in results.examples")
+                blockquote
+                  {{ex.text}}
+                  cite {{ex.url}}
             section#topExample
               header Top Example
               p {{results.topExample}}
