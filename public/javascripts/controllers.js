@@ -9,40 +9,33 @@ function WordnikCtrl($scope, Wordnik) {
 
   // Queries Wordnik API for results
   $scope.search = function() {
+    // Cache hit
+    if (cache[$scope.query]) {
+      console.log('Cache Hit')
+      $scope.results = cache[$scope.query]
+      return
+    }
+
     $scope.results = {}
 
     // Defaults to all possible defined actions.  Reference Wordnik.actions in
     // `/javascripts/app.js`
     $scope.actions.forEach(function(action) {
       var queryFn = Wordnik.q[Wordnik.actions[action]]
-        , results = retrieveCache($scope.query) ||
-                    queryFn(  { action: action
+        , results = queryFn(  { action: action
                               , word: $scope.query
                               , useCanonical: false
                               }
                               , function success() {
-                                $scope.results[action] = Wordnik.parse(action, results)
-
                                 console.log('Cache Miss')
+                                $scope.results[action] = Wordnik.parse(action, results)
                               }
                               , function error() {
                               }
       )
     })
-  }
 
-  function retrieveCache(query) {
-    if (cache[query]) {
-      console.log('Cache Hit')
-
-      $scope.apply(function cacheToResults(scope) {
-        scope.results = cache[query]
-      })
-
-      return true
-    }
-    else
-      return false
+    cache[$scope.query] = $scope.results
   }
 }
 
