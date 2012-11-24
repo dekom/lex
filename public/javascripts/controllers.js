@@ -1,7 +1,6 @@
 // Handles query to Wordnik API
 
 function WordnikCtrl($scope, Wordnik) {
-
   // List of all the actions to be queried to Wordnik API
   $scope.actions = Object.keys(Wordnik.actions)
   $scope.results = {}

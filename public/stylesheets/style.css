@@ -1,0 +1,8 @@
+html, body {
+  height: 100%;
+}
+
+#relatedwords .separated {
+  margin-left: 5px;
+  margin-right: 5px;
+}

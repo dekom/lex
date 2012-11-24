@@ -28,9 +28,9 @@ lex.factory('Wordnik', function($resource) {
   // Default list of possible queries and the resource method they need to
   // call.  The difference between 'get' and 'query' is that 'query' returns
   // an array, while 'get' returns an object
-  wordnik.actions = { 'examples' : 'get'
-                    , 'definitions' : 'query'
-                    , 'topExample' : 'get'
+  wordnik.actions = { 'definitions' : 'query'
+                    //, 'examples' : 'get'
+                    //, 'topExample' : 'get'
                     , 'relatedWords' : 'query'
                     , 'pronunciations' : 'query'
                     //, 'etymologies' : 'query'
