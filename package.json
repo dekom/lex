@@ -2,6 +2,10 @@
   "name": "LeX",
   "version": "0.0.1",
   "private": true,
+  "engines": {
+    "node": "0.8.x",
+    "npm": "1.1.x"
+  },
   "dependencies": {
     "locomotive": "0.3.x",
     "express": "3.x.x",
