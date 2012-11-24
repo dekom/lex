@@ -17,10 +17,10 @@ block body
           article#results.span12
             header
               h1 {{ query }} 
-                small {{results.pronunciations[0].raw}}
+                small(ng-bind-html-unsafe="results.pronunciations[0].raw")
 
             section
-              audio#audio(controls, 
+              audio#audio(controls,
                 ng-src="{{results.audio[0].fileUrl}}",
                 ng-show="results.audio"
                 autoplay)
