@@ -7,42 +7,36 @@ block body
       .span2#side
         h1= title
         p The non-intrusive personal vocabulary builder
+        form(ng-submit='search()')
+          input(type='text', ng-model='query', autofocus,
+          placeholder='Search Word')
+
       <!-- Body -->
       .span10#main
         .row-fluid
-          .span12
-            form(ng-submit='search()')
-              input(type='text', ng-model='query', autofocus,
-              placeholder='Search Word')
-        .row-fluid
           article#results.span12
             header
-              h1 {{ query }}
-              audio#audio(controls,
+              h1 {{ query }} 
+                small {{results.pronunciations[0].raw}}
+
+            section
+              audio#audio(controls, 
                 ng-src="{{results.audio[0].fileUrl}}",
                 ng-show="results.audio"
                 autoplay)
 
-            <!-- Definitions -->
-            dl#definitions
-              div(ng-repeat="def in results.definitions")
-                dt {{def.partOfSpeech}}
-                dd {{def.text}}
+            section
+              <!-- Definitions -->
+              dl#definitions
+                div(ng-repeat="def in results.definitions")
+                  dt {{def.partOfSpeech}}
+                  dd {{def.text}}
 
-            ul(type='none')#examples
-              li(ng-repeat="ex in results.examples")
-                blockquote
-                  {{ex.text}}
-                  cite {{ex.url}}
-            section#topExample
-              header Top Example
-              p {{results.topExample}}
-            section#relatedWords
-              header Related Words
-              p {{results.relatedWords}}
-            section#pronunications
-              header Pronunciations
-              p {{results.pronunciations}}
-            section#audio
-              header Audio
-              p {{results.audio}}
+            section
+              <!-- Related Words -->
+              dl#relatedwords
+                div(ng-repeat="related in results.relatedWords")
+                  dt {{related.relationshipType}}
+                  dd
+                    span.separated(ng-repeat="word in related.words")
+                      {{word}}
