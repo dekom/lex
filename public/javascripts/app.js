@@ -24,7 +24,7 @@ lex.factory('Wordnik', function($resource) {
                 , callback: 'JSON_CALLBACK'
                 }
     , exampleKeys = ['year', 'url', 'text'] // topExample is a singleton from examples
-
+    , cache = {}
   // Default list of possible queries and the resource method they need to
   // call.  The difference between 'get' and 'query' is that 'query' returns
   // an array, while 'get' returns an object
@@ -108,3 +108,8 @@ lex.factory('Wordnik', function($resource) {
 
   return wordnik
 })
+
+lex.factory('Wordnik.cache', function() {
+
+
+}
