@@ -9,6 +9,7 @@ function WordnikCtrl($scope, Wordnik) {
 
   // Queries Wordnik API for results
   $scope.search = function() {
+
     // Cache hit
     if (cache[$scope.query]) {
       console.log('Cache Hit')
@@ -31,6 +32,7 @@ function WordnikCtrl($scope, Wordnik) {
                                 $scope.results[action] = Wordnik.parse(action, results)
                               }
                               , function error() {
+                                console.log('Error')
                               }
       )
     })

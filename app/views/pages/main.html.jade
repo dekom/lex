@@ -7,8 +7,9 @@ block body
       .span2#side
         h1= title
         p The non-intrusive personal vocabulary builder
+        .row-fluid
         form(ng-submit='search()')
-          input(type='text', ng-model='query', autofocus,
+          input.span12(type='text', ng-model='query', autofocus,
           placeholder='Search Word')
 
       <!-- Body -->
