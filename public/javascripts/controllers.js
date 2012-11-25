@@ -39,6 +39,12 @@ function WordnikCtrl($scope, Wordnik) {
 
     cache[$scope.query] = $scope.results
   }
+
+  // Plays the audio URL fetched
+  $scope.playAudio = function() {
+    var audio = $('#audio').get(0)
+    audio.play()
+  }
 }
 
 WordnikCtrl.$inject = ['$scope', 'Wordnik']

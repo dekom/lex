@@ -16,15 +16,18 @@ block body
       .span10#main
         .row-fluid
           article#results.span12
-            header
+            header.page-header
               h1 {{ query }} 
                 small(ng-bind-html-unsafe="results.pronunciations[0].raw")
+                i(ng-show="results.audio"
+                  ng-click="playAudio()").icon-volume-up#audioPlay
 
             section
-              audio#audio(controls,
-                ng-src="{{results.audio[0].fileUrl}}",
-                ng-show="results.audio",
-                autoplay)
+              audio#audio(
+                ng-src="{{results.audio[0].fileUrl}}"
+                ng-show="results.audio"
+                autoplay
+                type="audio/mp3")
                 Your browser does not support 
                   code HTML5 audio.
 
