@@ -17,8 +17,6 @@ function WordnikCtrl($scope, Wordnik) {
       return
     }
 
-    $scope.results = {}
-
     // Defaults to all possible defined actions.  Reference Wordnik.actions in
     // `/javascripts/app.js`
     $scope.actions.forEach(function(action) {
@@ -37,6 +35,7 @@ function WordnikCtrl($scope, Wordnik) {
       )
     })
 
+    $scope.results.query = $scope.query
     cache[$scope.query] = $scope.results
   }
 

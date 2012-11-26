@@ -5,24 +5,31 @@ block body
     .row-fluid
       <!-- Side bar -->
       .span2#side
-        h1= title
-        p The non-intrusive personal vocabulary builder
         .row-fluid
-        form(ng-submit='search()')
-          input.span12(type='text', ng-model='query', autofocus,
-          placeholder='Search Word')
+          .span12
+            h1= title
+            p The non-intrusive personal vocabulary builder
+        .row-fluid
+          form#query(ng-submit='search()')
+            input.span12(type='text', ng-model='query', autofocus,
+            placeholder='Search Word')
+        .row-fluid
+            ul.nav.nav-pills.nav-stacked.span12(type="none")
+              li
+                a(href="https://github.com/nons/lex") Code on Github
+              li
+                a(href="http://xingzhou.me") dekom
 
       <!-- Body -->
       .span10#main
         .row-fluid
           article#results.span12
             header.page-header
-              h1 {{ query }} 
+              h1 {{ results.query }} 
                 small(ng-bind-html-unsafe="results.pronunciations[0].raw")
                 i(ng-show="results.audio"
                   ng-click="playAudio()").icon-volume-up#audioPlay
 
-            section
               audio#audio(
                 ng-src="{{results.audio[0].fileUrl}}"
                 ng-show="results.audio"
@@ -33,7 +40,7 @@ block body
 
             section
               <!-- Definitions -->
-              dl#definitions
+              dl.row-fluid#definitions
                 div(ng-repeat="def in results.definitions")
                   dt {{def.partOfSpeech}}
                   dd {{def.text}}
@@ -44,5 +51,6 @@ block body
                 div(ng-repeat="related in results.relatedWords")
                   dt {{related.relationshipType}}
                   dd
-                    span.separated(ng-repeat="word in related.words")
-                      {{word}}
+                    ul
+                      li(ng-repeat="word in related.words")
+                        {{word}}

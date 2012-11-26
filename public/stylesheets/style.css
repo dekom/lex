@@ -11,3 +11,15 @@ html, body {
   cursor: pointer;
   vertical-align: middle;
 }
+
+#definitions div, #relatedwords div {
+  margin: 5px;
+  padding: 5px;
+  width: 20%;
+  display: inline-block;
+  vertical-align: top;
+}
+
+#definitions div:nth-child(odd), #relatedwords div:nth-child(even) {
+  background-color: lightgrey;
+}
