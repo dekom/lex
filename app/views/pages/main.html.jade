@@ -2,49 +2,41 @@ extends ../layout
 
 block body
   div(ng-controller="WordnikCtrl")
-    .navbar.navbar-fixed-top
-      .navbar-inner
-        .container-fluid
-          a.brand.pull-right(href="#") LeX
-          form.navbar-search#query(ng-submit='search()')
-            input.search-query( type='text'
-                                ng-model='query'
-                                autofocus,
-                                placeholder='Search Word')
-          p.navbar-text.pull-right Personal vocabulary builder
-    .container-fluid
-      .row-fluid
-        <!-- Body -->
-        .span12#main
-          .row-fluid
-            article#results.span12
-              header.page-header
-                h1 {{ results.query }} 
-                  small(ng-bind-html-unsafe="results.pronunciations[0].raw")
-                  i(ng-show="results.audio"
-                    ng-click="playAudio()").icon-volume-up#audioPlay
+    form(ng-submit='search()')
+      input#query(  type='text'
+              ng-model='query'
+              autofocus,
+              placeholder='Search Word')
+    <!-- Body -->
+    article#results
+      header
+        h1 {{ results.query }}
+          small(ng-bind-html-unsafe="results.pronunciations[0].raw")
+          i(ng-show="results.audio"
+            ng-click="playAudio()").icon-volume-up#audio-play
 
-                audio#audio(
-                  ng-src="{{results.audio[0].fileUrl}}"
-                  ng-show="results.audio"
-                  autoplay
-                  type="audio/mp3")
-                  Your browser does not support 
-                    code HTML5 audio.
+        audio#audio(
+          ng-src="{{results.audio[0].fileUrl}}"
+          ng-show="results.audio"
+          autoplay
+          type="audio/mp3")
+          Your browser does not support
+            code HTML5 audio
+            .
 
-              section
-                <!-- Definitions -->
-                dl.row-fluid#definitions
-                  div(ng-repeat="def in results.definitions")
-                    dt {{def.partOfSpeech}}
-                    dd {{def.text}}
+      section
+        <!-- Definitions -->
+        dl#definitions
+          div(ng-repeat="def in results.definitions")
+            dt {{def.partOfSpeech}}
+            dd {{def.text}}
 
-              section
-                <!-- Related Words -->
-                dl#relatedwords
-                  div(ng-repeat="related in results.relatedWords")
-                    dt {{related.relationshipType}}
-                    dd
-                      ul
-                        li(ng-repeat="word in related.words")
-                          {{word}}
+      section
+        <!-- Related Words -->
+        dl#relatedwords
+          div(ng-repeat="related in results.relatedWords")
+            dt {{related.relationshipType}}
+            dd
+              ul
+                li(ng-repeat="word in related.words")
+                  {{word}}

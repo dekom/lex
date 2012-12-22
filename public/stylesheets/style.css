@@ -2,25 +2,23 @@ html {
   height: 100%;
 }
 
-body {
-  margin-top: 40px;
+#query {
+  width: 100%;
+  font-size: xx-small;
+}
+
+#query:focus {
+  font-size: medium;
+}
+
+#query:hover {
+  font-size: medium;
 }
 
 #githubBanner {
   position: fixed;
-  top: 40px;
   right: 0;
-}
-
-@media(max-width: 979px) {
-  #githubBanner {
-    top: 50px;
-  }
-}
-
-#relatedwords .separated {
-  margin-left: 5px;
-  margin-right: 5px;
+  top: 0;
 }
 
 #audioPlay {
@@ -41,5 +39,9 @@ body {
 }
 
 #definitions div:nth-child(odd), #relatedwords div:nth-child(even) {
-  background-color: lightgrey;
+  background-color: lightyellow;
+}
+
+dd {
+  margin: 0;
 }
